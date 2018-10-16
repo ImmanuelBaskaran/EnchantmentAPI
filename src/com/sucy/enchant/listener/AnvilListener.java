@@ -74,7 +74,7 @@ public class AnvilListener extends BaseListener {
             final AnvilInventory anvil = (AnvilInventory) event.getInventory();
             if (anvil.getRepairCost() == 0
                     && isPresent(anvil.getItem(2))
-                    && !isPresent(event.getWhoClicked().getItemOnCursor()) || !event.getAction().name().startsWith("PICKUP")) {
+                    && !isPresent(event.getWhoClicked().getItemOnCursor()) && !event.getAction().name().startsWith("PICKUP")) {
                 final Player player = (Player)event.getWhoClicked();
                 if (player.getGameMode() == GameMode.CREATIVE || checkLevels(player, anvil)) {
                     player.setItemOnCursor(anvil.getItem(2));
