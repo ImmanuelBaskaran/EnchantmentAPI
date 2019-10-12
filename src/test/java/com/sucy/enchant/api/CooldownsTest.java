@@ -1,20 +1,19 @@
 package com.sucy.enchant.api;
 
-import com.sucy.enchant.TestUtils;
 import org.bukkit.entity.LivingEntity;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import java.time.Clock;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -22,7 +21,8 @@ import static org.mockito.Mockito.when;
  * EnchantmentAPI © 2017
  * com.sucy.enchant.api.CooldownsTest
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class CooldownsTest {
 
     private static final String ENCHANT_NAME = "enchantName";
@@ -37,15 +37,14 @@ public class CooldownsTest {
     @Mock
     private Settings settings;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
-        TestUtils.set(Cooldowns.class, "clock", clock);
-
+        Cooldowns.setClock(clock);
         when(enchantment.getName()).thenReturn(ENCHANT_NAME);
         when(user.getUniqueId()).thenReturn(USER_ID);
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
     }
 

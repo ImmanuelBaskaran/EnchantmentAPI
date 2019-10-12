@@ -4,14 +4,9 @@ import com.sucy.enchant.api.CustomEnchantment;
 import com.sucy.enchant.vanilla.VanillaEnchantment;
 import org.bukkit.enchantments.Enchantment;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.Map;
 
-import static org.mockito.Matchers.anyVararg;
-import static org.mockito.Mockito.doCallRealMethod;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * EnchantmentAPI © 2017
@@ -42,33 +37,17 @@ public class TestUtils {
         getRegistry().clear();
     }
 
-    @SuppressWarnings("unchecked")
     public static Map<String, CustomEnchantment> getRegistry() throws Exception {
-        return ((Map<String, CustomEnchantment>)getField(EnchantmentAPI.class, "ENCHANTMENTS").get(null));
+        return EnchantmentAPI.getEnchantments();
     }
 
     public static void register(final CustomEnchantment enchantment) throws Exception {
         getRegistry().put(enchantment.getName(), enchantment);
     }
 
-    public static void set(final Class<?> clazz, final String fieldName, final Object value) throws Exception {
-        getField(clazz, fieldName).set(null, value);
-    }
-
-    public static <T> Field getField(final Class<T> clazz, final String name) throws Exception {
-        final Field field = clazz.getDeclaredField(name);
-        field.setAccessible(true);
-
-        final Field modifier = Field.class.getDeclaredField("modifiers");
-        modifier.setAccessible(true);
-        modifier.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-
-        return field;
-    }
-
     private static EnchantmentAPI wrapAPI() {
         final EnchantmentAPI api = mock(EnchantmentAPI.class);
-        doCallRealMethod().when(api).register(anyVararg());
+        doCallRealMethod().when(api).register(any());
         return api;
     }
 }

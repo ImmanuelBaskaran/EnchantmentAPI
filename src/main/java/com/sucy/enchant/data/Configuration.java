@@ -12,6 +12,11 @@ public class Configuration {
 
     private static DataSection data;
 
+    // visible for testing
+    public static void setData(DataSection data) {
+        Configuration.data = data;
+    }
+
     public static void reload(final EnchantmentAPI plugin) {
         final CommentedConfig config = new CommentedConfig(plugin, "config");
         config.saveDefaultConfig();

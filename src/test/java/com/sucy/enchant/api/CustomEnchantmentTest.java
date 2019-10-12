@@ -6,19 +6,19 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -26,7 +26,8 @@ import static org.mockito.Mockito.when;
  * EnchantmentAPI © 2017
  * com.sucy.enchant.api.CustomEnchantmentTest
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class CustomEnchantmentTest {
 
     @Mock
@@ -38,7 +39,7 @@ public class CustomEnchantmentTest {
 
     private CustomEnchantment subject;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         subject = new TestEnchant();
         TestUtils.register(subject);
@@ -50,7 +51,7 @@ public class CustomEnchantmentTest {
         when(meta.hasLore()).thenReturn(true);
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
     }
 
@@ -181,75 +182,10 @@ public class CustomEnchantmentTest {
         verify(item).setItemMeta(meta);
     }
 
-    @Test
-    public void addToEnchantment() throws Exception {
-    }
-
-    @Test
-    public void removeFromItem() throws Exception {
-    }
-
-    @Test
-    public void hasPermission() throws Exception {
-    }
-
-    @Test
-    public void getPermission() throws Exception {
-    }
-
-    @Test
-    public void applyOnHit() throws Exception {
-    }
-
-    @Test
-    public void applyDefense() throws Exception {
-    }
-
-    @Test
-    public void applyBreak() throws Exception {
-    }
-
-    @Test
-    public void applyEquip() throws Exception {
-    }
-
-    @Test
-    public void applyUnequip() throws Exception {
-    }
-
-    @Test
-    public void applyInteractBlock() throws Exception {
-    }
-
-    @Test
-    public void applyInteractEntity() throws Exception {
-    }
-
-    @Test
-    public void applyProjectile() throws Exception {
-    }
-
-    @Test
-    public void equals() throws Exception {
-    }
-
-    @Test
-    public void compareTo() throws Exception {
-    }
-
-    @Test
-    public void getSaveFolder() throws Exception {
-    }
-
-    @Test
-    public void save() throws Exception {
-    }
-
-    @Test
-    public void load() throws Exception {
-    }
-
     private static class TestEnchant extends CustomEnchantment {
-        TestEnchant() { super("test", "description"); }
+        TestEnchant() {
+            super("test", "description");
+            setMaxLevel(5);
+        }
     }
 }

@@ -9,11 +9,7 @@ import com.sucy.enchant.cmd.Commands;
 import com.sucy.enchant.data.ConfigKey;
 import com.sucy.enchant.data.Configuration;
 import com.sucy.enchant.data.Enchantability;
-import com.sucy.enchant.listener.AnvilListener;
-import com.sucy.enchant.listener.BaseListener;
-import com.sucy.enchant.listener.EnchantListener;
-import com.sucy.enchant.listener.FishingListener;
-import com.sucy.enchant.listener.ItemListener;
+import com.sucy.enchant.listener.*;
 import com.sucy.enchant.skillapi.SkillAPIHook;
 import com.sucy.enchant.vanilla.VanillaData;
 import org.bukkit.Bukkit;
@@ -21,12 +17,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * EnchantmentAPI © 2017
@@ -39,6 +30,11 @@ public class EnchantmentAPI extends JavaPlugin implements EnchantmentRegistry {
     private final List<BaseListener> listeners = new ArrayList<>();
 
     private static EnchantmentAPI enabled;
+
+    // visible for testing
+    public static Map<String, CustomEnchantment> getEnchantments() {
+        return ENCHANTMENTS;
+    }
 
     @Override
     public void onEnable() {
@@ -110,7 +106,8 @@ public class EnchantmentAPI extends JavaPlugin implements EnchantmentRegistry {
         for (final CustomEnchantment enchantment : enchantments) {
             final String key = enchantment.getName().toLowerCase();
             if (ENCHANTMENTS.containsKey(key)) {
-                getLogger().warning("Duplicate enchantment name \"" + enchantment.getName() + "\" was found");
+                Optional.ofNullable(getLogger())
+                    .ifPresent(l -> l.warning("Duplicate enchantment name \"" + enchantment.getName() + "\" was found"));
                 continue;
             }
 
