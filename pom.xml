@@ -6,7 +6,7 @@
 	<version>2.0.0-SNAPSHOT</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jdk.version>12</jdk.version>
+		<jdk.version>8</jdk.version>
 		<spigot.version>1.14.4-R0.1-SNAPSHOT</spigot.version>
 		<mvn-compiler-plugin.version>3.8.1</mvn-compiler-plugin.version>
 
@@ -38,19 +38,27 @@
 			<groupId>com.sucy.mc</groupId>
 			<artifactId>McCore</artifactId>
 			<version>${mc-core.version}</version>
-			<scope>provided</scope>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/MCCore-1.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>com.sucy.mc</groupId>
 			<artifactId>SkillAPI</artifactId>
 			<version>${skill-api.version}</version>
-			<scope>provided</scope>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/SkillAPI-3.108.jar</systemPath>
 		</dependency>
 
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-junit-jupiter</artifactId>
 			<version>3.1.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
 

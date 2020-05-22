@@ -53,8 +53,8 @@ public class EnchantmentMerger {
         return this;
     }
 
-    public void merge(final CustomEnchantment enchantment, final int level, final boolean addCost, final boolean book) {
-
+    private void merge(final CustomEnchantment enchantment, final int level, final boolean addCost, final boolean book) {
+        try {
         // Ignore conflicting enchantments
         if (enchants.keySet().stream().anyMatch(enchant -> enchant.conflictsWith(enchantment, false))
                 || (enchants.containsKey(enchantment) && enchants.size() == maxEnchants)) {
@@ -76,10 +76,12 @@ public class EnchantmentMerger {
                 final int vanillaMax = ((VanillaEnchantment) enchantment).getEnchantment().getMaxLevel();
                 vanillaCost += Math.min(vanillaMax, combinedLevel) * costPerLevel;
                 customCost += Math.max(0, combinedLevel - vanillaMax) * costPerLevel;
-            }
-            else {
+            } else {
                 customCost += combinedLevel * costPerLevel;
             }
+            }
+        }catch (NullPointerException e){
+            //The enchants array is empty for Vanilla enchants
         }
     }
 
